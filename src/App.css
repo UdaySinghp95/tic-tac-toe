@@ -1,38 +1,196 @@
-.App {
-  text-align: center;
+:root {
+	--primary: white;
+	--len: 10rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.ap11ctn {
+	display: grid;
+	grid-template-columns: 1fr 1.5fr 1fr;
+
+	width: 100vw;
+	place-items: center;
+	place-content: center;
+	transition: 0.5s linear;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@media screen and (max-width: 950px) {
+	.ap11ctn {
+		grid-template-columns: 100vw;
+		grid-template-rows: repeat(1, 100px);
+	}
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.ap11hd {
+	color: var(--primary);
+	font-family: "Roboto", sans-serif;
+	text-decoration: solid;
+	font-size: 4rem;
+	font-weight: bolder;
+	margin-bottom: 8.5rem;
+	text-transform: uppercase;
+	text-align: center;
+	padding-top: 1rem;
 }
 
-.App-link {
-  color: #61dafb;
+.ap11cell::after,
+.ap11cell::before {
+	width: 0;
+	height: 0;
+	content: "";
+	box-sizing: border-box;
+	position: absolute;
+	background-color: var(--primary);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.ap11grid {
+	display: grid;
+	grid-template-columns: repeat(3, var(--len));
+	padding-bottom: 8rem;
+}
+
+.ap11cell {
+	display: flex;
+	width: var(--len);
+	height: var(--len);
+	border: 2px solid var(--primary);
+	box-sizing: border-box;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.ap11cell:nth-child(1),
+.ap11cell:nth-child(2),
+.ap11cell:nth-child(3) {
+	border-top: none;
+}
+
+.ap11cell:nth-child(7),
+.ap11cell:nth-child(8),
+.ap11cell:nth-child(9) {
+	border-bottom: none;
+}
+
+.ap11cell:nth-child(1),
+.ap11cell:nth-child(4),
+.ap11cell:nth-child(7) {
+	border-left: none;
+}
+.ap11cell:nth-child(3),
+.ap11cell:nth-child(6),
+.ap11cell:nth-child(9) {
+	border-right: none;
+}
+
+.ap11cell.cross::before,
+.ap11grid.cross .ap11cell:not(.cross):not(.circle):hover::before,
+.ap11cell.cross::after,
+.ap11grid.cross .ap11cell:not(.cross):not(.circle):hover::after {
+	height: calc(var(--len) * 0.8);
+	width: 1rem;
+	border-radius: 7px;
+}
+
+.ap11cell.cross::after,
+.ap11grid.cross .ap11cell:not(.circle):hover::after {
+	transform: rotate(45deg);
+}
+
+.ap11cell.cross::before,
+.ap11grid.cross .ap11cell:not(.circle):hover:before {
+	transform: rotate(-45deg);
+}
+
+.ap11cell:not(.cross):not(.circle):hover::after,
+.ap11cell:not(.cross):not(.circle):hover::before {
+	filter: brightness(0.6);
+}
+
+.ap11cell.cross::before,
+.ap11cell.cross::after,
+.ap11cell.circle::before {
+	transition: 0.4s;
+}
+
+.ap11cell.circle::before,
+.ap11grid.circle .ap11cell:not(.cross):not(.circle):hover::before {
+	height: calc(var(--len) * 0.7);
+	width: calc(var(--len) * 0.7);
+	background-color: transparent;
+	border-radius: 100px;
+	border: 10px solid var(--primary);
+}
+
+.ap11cell.cross:hover::before,
+.ap11cell.cross:hover::after {
+	box-shadow: 0 0 10px var(--primary);
+}
+.ap11cell.circle:hover::before {
+	box-shadow: 0 0 10px var(--primary);
+}
+.ap11cell:hover .circle {
+	background: red;
+}
+
+@keyframes blink {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.ap11cell.blink::after,
+.ap11cell.blink::before {
+	animation: blink 0.7s 3 linear;
+	transition: all;
+}
+
+.restart {
+	background: url("../public/restart.svg");
+	width: 100px;
+	height: 100px;
+
+	color: white !important;
+	/* background-color: red; */
+}
+
+@keyframes rotateAnimate {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.ap11im {
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	right: 2vw;
+	top: 3vh;
+	transition: 0.2s;
+	cursor: pointer;
+}
+
+.ap11im:hover {
+	animation: rotateAnimate 0.7s 1 linear;
+}
+
+.timer {
+	width: 13rem;
+	height: 13rem;
+	border-radius: 50%;
+	color: var(--primary);
+	border: 10px solid currentColor;
+	left: 5rem;
+	display: flex;
+	font-size: 5rem;
+	font-weight: bolder;
+	justify-content: center;
+	align-items: center;
 }
